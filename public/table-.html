@@ -3,8 +3,8 @@
 <head>
   <nav class="navbar navbar-dark bg-dark"><!--https://getbootstrap.com/docs/4.0/components/navbar/-->
 <a class="navbar-brand" href="index.html">Home</a>
-<a class="navbar-brand" href="table1.html">Books</a>
-<a class="navbar-brand" href="mattbio1.html">Biography</a>
+<a class="navbar-brand" href="table-.html">Books</a>
+<a class="navbar-brand" href="matt-bio.html">Biography</a>
 </nav>
   <title>Table</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"><!--https://www.bootstrapdash.com/use-bootstrap-with-html/-->
@@ -12,7 +12,7 @@
 </head>
 <body>
   <h1>Table with Book Information</h1>
-<table class="table table-striped table-light"><!--https://getbootstrap.com/docs/4.0/content/tables/-->
+<table id="tasktable" class="table table-striped table-light"><!--https://getbootstrap.com/docs/4.0/content/tables/-->
 <thead>
 <tr>
 <th scope="col">#</th>
@@ -79,6 +79,10 @@
   </tr>
   </tbody>
 </table>
+<script src="js/tablesort.min.js" ></script>
+<script>
+  new Tablesort(document.getElementById('tasktable'));
+</script>
 <br>
 <h1>Add New Book Information</h1>
 <div class ="form"><!--https://getbootstrap.com/docs/4.0/components/forms/-->
