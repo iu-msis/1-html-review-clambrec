@@ -1,0 +1,4 @@
+MYSQL_DATABASE=database2
+MYSQL_HOST=database-2.cfpdrajnetvu.us-east-2.rds.amazonaws.com
+MYSQL_USER=admin
+MYSQL_PASSWORD=MSISgrad2022$

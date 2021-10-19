@@ -1,36 +1,92 @@
 const SomeApp = {
-    data() {
-      return {
-        persond: {},
-        list: [5,6,7,8],
-        message: "Waiting ..."
-      }
-    },
-    computed: {
-        prettyBirthday() {
-            return dayjs(this.persond.dob.date)
-            .format('D MMM YYYY')
-        }
-    },
-    methods: {
-        fetchUserData() {
-            //Method 1:
-            fetch('https://randomuser.me/api/')
-            .then(response => response.json())
-            .then((json) => {
-                console.log("Got json back:", json);
-                this.persond = json.results[0];
-                console.log("C");
-            })
-            .catch( (error) => {
-                console.error(error);
-            });
-        }
-    },
-    created() {
-        return this.fetchUserData();
+  data() {
+    return {
+      books: [],
+      offerForm:{}
     }
+  },
+  computed: {},
+  methods: {
 
+      fetchBookData() {
+          fetch('/api/book/')
+          .then( response => response.json() )
+          .then( (responseJson) => {
+              console.log(responseJson);
+              this.books = responseJson;
+          })
+          .catch( (err) => {
+              console.error(err);
+          })
+      },
+
+      postOffer(evt) {
+          console.log ("Test:", this.selectedOffer);
+        if (this.selectedOffer) {
+            this.postEditOffer(evt);
+        } else {
+            this.postNewOffer(evt);
+        }
+      },
+      postEditOffer(evt) {
+      //  this.offerForm.id = this.selectedOffer.id;
+      //  this.offerForm.studentId = this.selectedStudent.id;
+
+        console.log("Editing!", this.offerForm);
+
+        fetch('api/books/update.php', {
+            method:'POST',
+            body: JSON.stringify(this.offerForm),
+            headers: {
+              "Content-Type": "application/json; charset=utf-8"
+            }
+          })
+          .then( response => response.json() )
+          .then( json => {
+            console.log("Returned from post:", json);
+            // TODO: test a result was returned!
+            this.offers = json;
+
+            // reset the form
+            this.handleResetEdit();
+          });
+      },
+
+      postNewOffer(evt) {
+        //this.offerForm.studentId = this.selectedStudent.id;
+
+        console.log("Creating!", this.offerForm);
+
+        fetch('api/book/create.php', {
+            method:'POST',
+            body: JSON.stringify(this.offerForm),
+            headers: {
+              "Content-Type": "application/json; charset=utf-8"
+            }
+          })
+          .then( response => response.json() )
+          .then( json => {
+            console.log("Returned from post:", json);
+            // TODO: test a result was returned!
+            this.books = json;
+
+            // reset the form
+            this.OfferForm();
+          });
+      },
+      handleEditOffer(bookId) {
+          this.selectedOffer = book;
+          this.offerForm = Object.assign({}, this.selectedOffer);
+      },
+      handleResetEdit() {
+          this.selectedOffer = null;
+          this.offerForm = {};
+      }
+  },
+  created() {
+      this.fetchBookData();
   }
 
-  Vue.createApp(SomeApp).mount('#someApp');
+}
+
+Vue.createApp(SomeApp).mount('#bookApp');
