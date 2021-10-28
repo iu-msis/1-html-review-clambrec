@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
 
-    <title>Hello, world!</title>
+    <title>Welcome</title>
 
     <script src="https://unpkg.com/vue@next"></script>
 
@@ -24,13 +24,13 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="books.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link" href="matt-bio.html">Biography</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
+                <a class="nav-link" href="person.html">Person</a>
               </li>
             </ul>
           </div>
@@ -39,8 +39,6 @@
 
 
 <div id="bookApp" class="container">
-
-
            <table class="table">
              <thead>
                <tr>
@@ -60,11 +58,19 @@
                      <td>{{ book.publisher }}</td>
                      <td>{{ book.pages }}</td>
                      <td>{{ book.price }}</td>
+                     <td></td>
+                    <td> <button type="button"
+                            class="btn btn-outline-secondary btn-sm"
+                            v-on:click="selectBookToEdit(book)">Edit</button>
+                    <td><button type="button"
+                    class="btn btn-outline-secondary btn-sm"
+                    v-on:click="postDeleteBook(book)">Delete</button>
+                  </td>
                  </tr>
              </tbody>
            </table>
-           <h3>{{ selectedOffer === null ? "Add " : "Edit " }} Add New Book</h3>
-            <form v-on:submit.prevent="postNewOffer">
+           <h3>{{ selectedBook === null ? "Add " : "Edit " }} New Book</h3>
+            <form v-on:submit.prevent="postOffer">
               <div class="mb-3">
                 <label for="title" class="form-label">Book Title</label>
                 <input type="text" v-model="offerForm.title"
@@ -88,11 +94,11 @@
               </div>
               <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
-                <input type="number" v-model="offerForm.price" class="form-control" id="price">
+                <input type="text" v-model="offerForm.price" class="form-control" id="price">
               </div>
-              <button type="submit" class="btn btn-primary">{{ selectedOffer === null ? "Add " : "Edit " }} Offer</button>
+              <button type="submit" class="btn btn-primary">{{ selectedBook === null ? "Add " : "Edit " }} Book</button>
               <button type="button" class="btn btn-outline-secondary"
-                 v-if="selectedOffer"
+                 v-if="selectedBook"
                  v-on:click="handleResetEdit">Cancel Edit</button>
             </form>
 
